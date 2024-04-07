@@ -48,7 +48,7 @@ public class Arquivo<T extends Registro> {
             arq.skipBytes(1);
             tamarrayapontado = arq.readShort();
 
-            //proxEndereco = arq.readLong();
+            // proxEndereco = arq.readLong();
             if (tam <= tamarrayapontado) {
                 long prox = arq.readLong();
                 arq.seek(proxEndereco);
@@ -68,17 +68,20 @@ public class Arquivo<T extends Registro> {
                 long anteproxEndereco = 4;
                 arq.seek(proxEndereco);
                 tamarrayapontado = arq.readShort();
-                //arq.skipBytes(1);
-                //anteproxEndereco = proxEndereco;
-                //proxEndereco = arq.readLong();
+                // arq.skipBytes(1);
+                // anteproxEndereco = proxEndereco;
+                // proxEndereco = arq.readLong();
 
                 while (proxEndereco != 0 || tam > tamarrayapontado) {
-                    arq.seek(proxEndereco);
-                    arq.seek(proxEndereco - 1 - 2);
-                    tamarrayapontado = arq.readShort();
-                    arq.skipBytes(1);
-                    anteproxEndereco = proxEndereco;
-                    proxEndereco = arq.readLong();
+                    if (tam >= (tamarrayapontado / 2) && tam <= tamarrayapontado) {
+                        arq.seek(proxEndereco);
+                        arq.seek(proxEndereco - 1 - 2);
+                        tamarrayapontado = arq.readShort();
+                        arq.skipBytes(1);
+                        anteproxEndereco = proxEndereco;
+                        proxEndereco = arq.readLong();
+                        break;
+                    }
 
                 }
                 if (proxEndereco == 0) {
@@ -103,7 +106,6 @@ public class Arquivo<T extends Registro> {
 
             }
         }
-
 
         return obj.getId();
     }
@@ -157,13 +159,15 @@ public class Arquivo<T extends Registro> {
                     arq.seek(endereco);
                     arq.write('*');
 
-                    // atualiza o ponteiro do próximo registro apagado para o antigo primeiro registro apagado
+                    // atualiza o ponteiro do próximo registro apagado para o antigo primeiro
+                    // registro apagado
                     arq.seek(4);
                     ultimoApagado = arq.readLong();
                     arq.seek(endereco + 2 + 1);
                     arq.writeLong(ultimoApagado);
 
-                    // atualiza o ponteiro do primeiro registro apagado para o registro que tá sendo deletado
+                    // atualiza o ponteiro do primeiro registro apagado para o registro que tá sendo
+                    // deletado
                     arq.seek(4);
                     arq.writeLong(endereco);
 
@@ -187,7 +191,8 @@ public class Arquivo<T extends Registro> {
             short tam = arq.readShort();
             long prox = arq.readLong();
 
-            System.out.println("Endereco: " + endereco + ", Lapide: " + lapide + ", Tam: " + tam + ", Prox: " + prox + ", Arquivo length: " + arq.length());
+            System.out.println("Endereco: " + endereco + ", Lapide: " + lapide + ", Tam: " + tam + ", Prox: " + prox
+                    + ", Arquivo length: " + arq.length());
 
             if (lapide == ' ') {
                 byte[] byteArray = new byte[tam];
@@ -254,4 +259,3 @@ public class Arquivo<T extends Registro> {
         arq.close();
     }
 }
-
