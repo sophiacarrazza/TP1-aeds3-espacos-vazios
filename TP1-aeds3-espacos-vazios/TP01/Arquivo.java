@@ -186,8 +186,6 @@ public class Arquivo<T extends Registro> {
 
                     // atualiza o ponteiro do primeiro registro apagado para o registro que tá sendo
                     // deletado
-                    arq.seek(4);
-                    arq.writeLong(endereco);
                     arq.seek(proxApagado);
                     arq.writeLong(0);
 
@@ -253,20 +251,21 @@ public class Arquivo<T extends Registro> {
                             arq.seek(endatualizar);
                             endereco =0;
                             arq.writeLong(endereco);
+                            //teste 
                             long valorcabecalho;
                             arq.seek(4);
                             valorcabecalho = arq.readLong();
                             System.out.println("valorcabecalho: " + valorcabecalho);
+                            // fim teste
                         } else {
                             System.out.println("Endereco depois que entra no else: " + endereco + ", Lapide: " + lapide + ", Tam: " + tam + ", Prox: " + prox
                                 + ", Arquivo length: " + arq.length());
                             
                             while (prox != 0) {
-                                proxEndereco = prox;
                                 if (prox < 0 || prox > arq.length()) {
                                     throw new IOException("prob ponteiro: " + prox);
                                 }
-                                anteEndereco = endereco+1+2;
+                                
                                 arq.seek(prox);
                                 
                                 endereco = arq.getFilePointer();
@@ -279,10 +278,11 @@ public class Arquivo<T extends Registro> {
 
                                     break;
                                 }
+                                anteEndereco = endereco+1+2;
                             }
                             System.out.println("anteEndereco: " + anteEndereco + "proxEndereco: " + proxEndereco);
-                            arq.seek(anteEndereco);
-                            arq.writeLong(proxEndereco);
+                            arq.seek(endereco+2+1);
+                            arq.writeLong(endatualizar-3);
                             arq.seek(endatualizar);
                             endereco =0;
                             arq.writeLong(endereco);
@@ -300,41 +300,49 @@ public class Arquivo<T extends Registro> {
                             arq.write(byteArray2);
                             return true;
                         } else {
-                           arq.seek(4);
-                           anteEndereco =4;
-                           prox = arq.readLong();
                            
                             while (tam2 > tam && prox >0) {
-                                anteEndereco = prox;
+                                anteEndereco = arq.getFilePointer()-8;
                                 arq.seek(prox);
-                                endereco = proxEndereco;
+                                endereco = arq.getFilePointer();
                                 lapide = arq.readByte();
                                 tam = arq.readShort();
                                 prox = arq.readLong();
 
                             }
-                            if(prox == 0){
+                            if(prox == 0 && tam2<=tam){
+                                
+                                arq.seek(endereco);
+                                arq.write(' ');
+                                arq.writeShort(tam);
+                                arq.writeLong(-1);
+                                arq.write(byteArray2);
+                                if (anteEndereco == 4){
+                                    arq.seek(anteEndereco);
+                                }else{
+                                    arq.seek(anteEndereco+2+1);
+                                }
+                                
+                                prox = 0;
+                                arq.writeLong(prox);
+                            }else if(prox == 0){
                                 arq.seek(arq.length());
                                 arq.write(' ');
                                 arq.writeShort(tam2);
                                 arq.writeLong(-1);
                                 arq.write(byteArray2);
-                            }else if(prox == 0 && tam2>=tam){
-                                arq.seek(endereco);
-                                arq.write(' ');
-                                arq.writeShort(tam2);
-                                arq.writeLong(-1);
-                                arq.write(byteArray2);
-                                arq.seek(anteEndereco+1+2);
-                                prox = 0;
-                                arq.writeLong(prox);
+
                             }else {
                                 arq.seek(endereco);
                                 arq.write(' ');
-                                arq.writeShort(tam2);
+                                arq.writeShort(tam);
                                 arq.writeLong(-1);
                                 arq.write(byteArray2);
-                                arq.seek(anteEndereco+1+2);
+                                if (anteEndereco == 4){
+                                    arq.seek(anteEndereco);
+                                }else{
+                                    arq.seek(anteEndereco+2+1);
+                                }
                                 arq.writeLong(prox);
                             }
                             return true;
