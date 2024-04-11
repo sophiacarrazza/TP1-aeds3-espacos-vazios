@@ -4,6 +4,8 @@ Primeiro trabalho prático da disciplina Algoritmos e Estruturas de Dados III fe
 **Experiência do grupo:**
     Nosso grupo implementou todos os requisitos que propomos realizar. A maior dificuldade foram os erros com ponteiros nas funções update e delete, mas os resultados foram alcançados com sucesso após debuggar o código múltiplas vezes e repensar a lógica (de retornar a uma mais simples sem ponteiros).
     <br/>
+    Observações: Nós fizemos com que, a cada vez que o código roda, o arquivo é apagado antes de realizar as funções, para os dados do arquivo anterior não entrarem em conflito!
+    <br/>
 **Perguntas:**
 - O que você considerou como perda aceitável para o reuso de espaços vazios, isto é, quais são os critérios para a gestão dos espaços vazios?<br/>
     Consideramos que um registro de espaços vazios é reaproveitado quando ele tem tamanho igual ou um pouco maior que o novo inserido (o arquivo inserido deve ocupar pelo menos 50% do resgistro de espaços vazios). <br/>
