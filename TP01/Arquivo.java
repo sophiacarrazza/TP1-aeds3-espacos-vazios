@@ -16,6 +16,7 @@ public class Arquivo<T extends Registro> {
     this.construtor = c;
 
     arquivo = new RandomAccessFile(filmes, "rw");
+    arquivo.setLength(0); // Limpa o conteúdo do arquivo
     if (arquivo.length() < TAM_CABECALHO) {
       arquivo.seek(0);
       arquivo.writeInt(0);
@@ -24,33 +25,60 @@ public class Arquivo<T extends Registro> {
 
   public int create(T obj) throws Exception {
     arquivo.seek(0);
+    int ultimoID = arquivo.readInt();
+    ultimoID++;
+    arquivo.seek(0);
+    arquivo.writeInt(ultimoID);
+    obj.setId(ultimoID);
+
     byte[] ba = obj.toByteArray();
     int tam = ba.length;
 
     arquivo.seek(TAM_CABECALHO);
     while (arquivo.getFilePointer() < arquivo.length()) {
       byte lapide = arquivo.readByte();
-      int tamanho = arquivo.readInt();
-      if (lapide == '*' && tamanho <= tam) {
+      int tamanho_antigo = arquivo.readInt();
+      if (lapide == '*' && (tamanho_antigo >= tam && tamanho_antigo <= tam * 1.5)) { // Se o tamanho do registro
+                                                                                     // deletado for suficiente (50% a
+                                                                                     // mais do que o necessário)
+
         arquivo.write(' ');
         arquivo.writeInt(tam);
         arquivo.write(ba);
         return obj.getId();
       }
-      arquivo.skipBytes(tamanho);
+      arquivo.skipBytes(tamanho_antigo);
     }
-    if (arquivo.getFilePointer() == arquivo.length()) {
+    if (arquivo.getFilePointer() == arquivo.length()) { // Se chegou no final do arquivo
       arquivo.write(' ');
       arquivo.writeInt(tam);
       arquivo.write(ba);
+
     }
     return obj.getId();
   }
 
-  public boolean Update(T obj) {
+  public boolean update(T obj) {
+
     try {
-      delete(obj.getId());
-      create(obj);
+      byte[] ba = obj.toByteArray();
+      int tam = ba.length;
+
+      long endereco = getenderecoid(obj.getId());
+      arquivo.seek(endereco);
+      arquivo.readByte(); // le a lapide
+      int tamanho_antigo = arquivo.readInt();
+      arquivo.seek(endereco); // move o ponteiro de volta para o início do registro
+
+      if (tam > tamanho_antigo) {
+        delete(obj.getId());
+        create(obj);
+      } else {
+        // faz o update do registro no mesmo espaço
+        arquivo.write(' ');
+        arquivo.writeInt(tam);
+        arquivo.write(ba);
+      }
 
     } catch (Exception e) {
       System.out.println("Erro ao fechar o arquivo: " + e.getMessage());
@@ -84,8 +112,8 @@ public class Arquivo<T extends Registro> {
 
   public boolean delete(int id) throws Exception {
     long endereco = getenderecoid(id);
-    arquivo.seek(endereco);
     if (endereco != -1) {
+      arquivo.seek(endereco);
       arquivo.write('*');
       return true;
     }
