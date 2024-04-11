@@ -139,6 +139,44 @@ public class Principal {
                 System.out.println("Não foi possível atualizar o filme de ID " +
                         livro6.getId());
 
+            // READ DE NOVO
+
+            // Seção: Leitura e Verificação de Filme 1
+            if ((livro1 = arquivoFilmes.read(idLivro1)) != null)
+                System.out.println("Filme encontrado: " + livro1.getNome() + " (ID: " + livro1.getId() + ")");
+            else
+                System.out.println("Filme de ID " + idLivro1 + " não encontrado!");
+
+            // Seção: Leitura e Verificação de Filme 2
+            if ((livro2 = arquivoFilmes.read(idLivro2)) != null)
+                System.out.println("Filme encontrado: " + livro2.getNome() + " (ID: " + livro2.getId() + ")");
+            else
+                System.out.println("Filme de ID " + idLivro2 + " não encontrado!");
+
+            // Seção: Leitura e Verificação de Filme 3
+            if ((livro3 = arquivoFilmes.read(idLivro3)) != null)
+                System.out.println("Filme encontrado: " + livro3.getNome() + " (ID: " + livro3.getId() + ")");
+            else
+                System.out.println("Filme de ID " + idLivro3 + " não encontrado!");
+
+            // Seção: Leitura e Verificação de Filme 4
+            if ((livro4 = arquivoFilmes.read(idLivro4)) != null)
+                System.out.println("Filme encontrado: " + livro4.getNome() + " (ID: " + livro4.getId() + ")");
+            else
+                System.out.println("Filme de ID " + idLivro4 + " não encontrado!");
+
+            // Seção: Leitura e Verificação de Filme 5
+            if ((livro5 = arquivoFilmes.read(idLivro5)) != null)
+                System.out.println("Filme encontrado: " + livro5.getNome() + " (ID: " + livro5.getId() + ")");
+            else
+                System.out.println("Filme de ID " + idLivro5 + " não encontrado!");
+
+            // Seção: Leitura e Verificação de Filme 6
+            if ((livro6 = arquivoFilmes.read(idLivro6)) != null)
+                System.out.println("Filme encontrado: " + livro6.getNome() + " (ID: " + livro6.getId() + ")");
+            else
+                System.out.println("Filme de ID " + idLivro6 + " não encontrado!");
+
             // DELETE
 
             // Seção: Exclusão de Filme 1

@@ -42,9 +42,11 @@ public class Arquivo<T extends Registro> {
                                                                                      // deletado for suficiente (50% a
                                                                                      // mais do que o necessário)
 
+        int id_deletado = arquivo.readInt(); // id do registro deletado
         arquivo.write(' ');
         arquivo.writeInt(tam);
         arquivo.write(ba);
+        obj.setId(id_deletado);
         return obj.getId();
       }
       arquivo.skipBytes(tamanho_antigo);
@@ -58,33 +60,48 @@ public class Arquivo<T extends Registro> {
     return obj.getId();
   }
 
-  public boolean update(T obj) {
-
-    try {
+  public boolean update(T obj) throws Exception {
+    int id = obj.getId();
+    long endereco = getenderecoid(id);
+    if (endereco != -1) {
       byte[] ba = obj.toByteArray();
       int tam = ba.length;
 
-      long endereco = getenderecoid(obj.getId());
-      arquivo.seek(endereco);
-      arquivo.readByte(); // le a lapide
+      arquivo.seek(endereco + 1); // pula o byte de lapide
       int tamanho_antigo = arquivo.readInt();
-      arquivo.seek(endereco); // move o ponteiro de volta para o início do registro
 
-      if (tam > tamanho_antigo) {
-        delete(obj.getId());
-        create(obj);
-      } else {
-        // faz o update do registro no mesmo espaço
+      if (tam > tamanho_antigo) { // se o novo tamanho for maior
+
+        // procura por outro espaço vazio maior ou igual ao novo tamanho
+        while (arquivo.getFilePointer() < arquivo.length()) {
+          arquivo.readByte();
+          int tamanho = arquivo.readInt();
+          if (tamanho_antigo >= tam && tamanho_antigo <= tam * 1.5) { // encontrou espaço vazio suficiente
+            long novoEndereco = arquivo.getFilePointer() - 5; // volta para o início do registro
+            arquivo.seek(novoEndereco);
+            arquivo.write(' ');
+            arquivo.writeInt(tam);
+            arquivo.write(ba);
+            return true;
+          } else {
+            arquivo.skipBytes(tamanho);
+          }
+        }
+        // se nenhum espaço vazio suficiente foi encontrado, adicionar novo registro no
+        // final
+        arquivo.seek(arquivo.length());
         arquivo.write(' ');
         arquivo.writeInt(tam);
         arquivo.write(ba);
+        return true;
+      } else {
+        // se o novo tamanho for menor ou igual, atualiza no mesmo registro
+        arquivo.seek(endereco + 5); // vai para onde os dados estão armazenados
+        arquivo.write(ba);
+        return true;
       }
-
-    } catch (Exception e) {
-      System.out.println("Erro ao fechar o arquivo: " + e.getMessage());
-      return false;
     }
-    return true;
+    return false; // se o registro com o ID fornecido não foi encontrado
   }
 
   public T read(int id) throws Exception {
