@@ -1,5 +1,5 @@
 # TP1-aeds3-espacos-vazios
-Primeiro trabalho prático da disciplina Algoritmos e Estruturas de Dados III feito por Lívia Câmara, Sophia Carrazza e Yan Sabarense.
+Primeiro trabalho prático da disciplina Algoritmos e Estruturas de Dados III feito por Lívia Câmara, Sophia Carrazza e Yan Sabarense. <br/>
     <br/>
 **Experiência do grupo:**
     Nosso grupo implementou todos os requisitos que propomos realizar. A maior dificuldade foram os erros com ponteiros nas funções update e delete, mas os resultados foram alcançados com sucesso após debuggar o código múltiplas vezes e repensar a lógica (de retornar a uma mais simples sem ponteiros). <br/>
