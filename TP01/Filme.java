@@ -15,7 +15,8 @@ public class Filme implements Registro {
         this.avaliacao = avaliacao;
     }
 
-    public Filme() {}
+    public Filme() {
+    }
 
     // Getters e setters
     public int getId() {

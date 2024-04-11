@@ -7,13 +7,13 @@ public class Principal {
         file.delete();
 
         Arquivo<Filme> arquivoFilmes;
-        Filme livro1 = new Filme(-1, "Barbie", 10, "Cristina", 4.30);
-        Filme livro2 = new Filme(-1, "Harry Potter", 11, "Viajuntos", 7.50);
-        Filme livro3 = new Filme(-1, "Borboletas", 29, "Juliano", 2.15);
-        Filme livro4 = new Filme(-1, "Homem Aranha", 5, "Marvel", 8.30);
-        Filme livro5 = new Filme(-1, "Interestrelar", 1, "Viajantes", 7.50);
-        Filme livro6 = new Filme(-1, "Enrolados", 19, "Disney", 8.84);
-        int idLivro1, idLivro2, idLivro3, idLivro4, idLivro5, idLivro6;
+        Filme filme1 = new Filme(-1, "Barbie", 10, "Cristina", 4.30);
+        Filme filme2 = new Filme(-1, "Harry Potter", 11, "Viajuntos", 7.50);
+        Filme filme3 = new Filme(-1, "Borboletas", 29, "Juliano", 2.15);
+        Filme filme4 = new Filme(-1, "Homem Aranha", 5, "Marvel", 8.30);
+        Filme filme5 = new Filme(-1, "Interestrelar", 1, "Viajantes", 7.50);
+        Filme filme6 = new Filme(-1, "Enrolados", 19, "Disney", 8.84);
+        int idFilme1, idFilme2, idFilme3, idFilme4, idFilme5, idFilme6;
 
         try {
             arquivoFilmes = new Arquivo<Filme>("filmes.db", Filme.class.getConstructor());
@@ -21,205 +21,167 @@ public class Principal {
             // CREATE
 
             // Seção: Criação de Filme 1
-            idLivro1 = arquivoFilmes.create(livro1);
-            System.out.println("Filme \"" + livro1.getNome() + "\" criado com o ID: " + idLivro1);
+            idFilme1 = arquivoFilmes.create(filme1);
+            System.out.println("Filme \"" + filme1.getNome() + "\" criado com o ID: " + idFilme1);
 
             // Seção: Criação de Filme 2
-            idLivro2 = arquivoFilmes.create(livro2);
-            System.out.println("Filme \"" + livro2.getNome() + "\" criado com o ID: " + idLivro2);
+            idFilme2 = arquivoFilmes.create(filme2);
+            System.out.println("Filme \"" + filme2.getNome() + "\" criado com o ID: " + idFilme2);
 
             // Seção: Criação de Filme 3
-            idLivro3 = arquivoFilmes.create(livro3);
-            System.out.println("Filme \"" + livro3.getNome() + "\" criado com o ID: " + idLivro3);
+            idFilme3 = arquivoFilmes.create(filme3);
+            System.out.println("Filme \"" + filme3.getNome() + "\" criado com o ID: " + idFilme3);
 
             // Seção: Criação de Filme 4
-            idLivro4 = arquivoFilmes.create(livro4);
-            System.out.println("Filme \"" + livro4.getNome() + "\" criado com o ID: " + idLivro4);
+            idFilme4 = arquivoFilmes.create(filme4);
+            System.out.println("Filme \"" + filme4.getNome() + "\" criado com o ID: " + idFilme4);
 
             // Seção: Criação de Filme 5
-            idLivro5 = arquivoFilmes.create(livro5);
-            System.out.println("Filme \"" + livro5.getNome() + "\" criado com o ID: " + idLivro5);
+            idFilme5 = arquivoFilmes.create(filme5);
+            System.out.println("Filme \"" + filme5.getNome() + "\" criado com o ID: " + idFilme5);
 
             // Seção: Criação de Filme 6
-            idLivro6 = arquivoFilmes.create(livro6);
-            System.out.println("Filme \"" + livro6.getNome() + "\" criado com o ID: " + idLivro6);
+            idFilme6 = arquivoFilmes.create(filme6);
+            System.out.println("Filme \"" + filme6.getNome() + "\" criado com o ID: " + idFilme6);
 
             // READ
 
             // Seção: Leitura e Verificação de Filme 1
-            if ((livro1 = arquivoFilmes.read(idLivro1)) != null)
-                System.out.println("Filme encontrado: " + livro1.getNome() + " (ID: " + livro1.getId() + ")");
+            if ((filme1 = arquivoFilmes.read(idFilme1)) != null)
+                System.out.println("Filme encontrado: " + filme1.getNome() + " (ID: " + filme1.getId() + ")");
             else
-                System.out.println("Filme de ID " + idLivro1 + " não encontrado!");
+                System.out.println("Filme de ID " + idFilme1 + " não encontrado!");
 
             // Seção: Leitura e Verificação de Filme 2
-            if ((livro2 = arquivoFilmes.read(idLivro2)) != null)
-                System.out.println("Filme encontrado: " + livro2.getNome() + " (ID: " + livro2.getId() + ")");
+            if ((filme2 = arquivoFilmes.read(idFilme2)) != null)
+                System.out.println("Filme encontrado: " + filme2.getNome() + " (ID: " + filme2.getId() + ")");
             else
-                System.out.println("Filme de ID " + idLivro2 + " não encontrado!");
+                System.out.println("Filme de ID " + idFilme2 + " não encontrado!");
 
             // Seção: Leitura e Verificação de Filme 3
-            if ((livro3 = arquivoFilmes.read(idLivro3)) != null)
-                System.out.println("Filme encontrado: " + livro3.getNome() + " (ID: " + livro3.getId() + ")");
+            if ((filme3 = arquivoFilmes.read(idFilme3)) != null)
+                System.out.println("Filme encontrado: " + filme3.getNome() + " (ID: " + filme3.getId() + ")");
             else
-                System.out.println("Filme de ID " + idLivro3 + " não encontrado!");
+                System.out.println("Filme de ID " + idFilme3 + " não encontrado!");
 
             // Seção: Leitura e Verificação de Filme 4
-            if ((livro4 = arquivoFilmes.read(idLivro4)) != null)
-                System.out.println("Filme encontrado: " + livro4.getNome() + " (ID: " + livro4.getId() + ")");
+            if ((filme4 = arquivoFilmes.read(idFilme4)) != null)
+                System.out.println("Filme encontrado: " + filme4.getNome() + " (ID: " + filme4.getId() + ")");
             else
-                System.out.println("Filme de ID " + idLivro4 + " não encontrado!");
+                System.out.println("Filme de ID " + idFilme4 + " não encontrado!");
 
             // Seção: Leitura e Verificação de Filme 5
-            if ((livro5 = arquivoFilmes.read(idLivro5)) != null)
-                System.out.println("Filme encontrado: " + livro5.getNome() + " (ID: " + livro5.getId() + ")");
+            if ((filme5 = arquivoFilmes.read(idFilme5)) != null)
+                System.out.println("Filme encontrado: " + filme5.getNome() + " (ID: " + filme5.getId() + ")");
             else
-                System.out.println("Filme de ID " + idLivro5 + " não encontrado!");
+                System.out.println("Filme de ID " + idFilme5 + " não encontrado!");
 
             // Seção: Leitura e Verificação de Filme 6
-            if ((livro6 = arquivoFilmes.read(idLivro6)) != null)
-                System.out.println("Filme encontrado: " + livro6.getNome() + " (ID: " + livro6.getId() + ")");
+            if ((filme6 = arquivoFilmes.read(idFilme6)) != null)
+                System.out.println("Filme encontrado: " + filme6.getNome() + " (ID: " + filme6.getId() + ")");
             else
-                System.out.println("Filme de ID " + idLivro6 + " não encontrado!");
+                System.out.println("Filme de ID " + idFilme6 + " não encontrado!");
 
             // UPDATE
 
             // // Seção: Atualização de Filme 1
 
-            livro5.setNome("Interestelar");
-            if (arquivoFilmes.update(livro5))
-                System.out.println("Filme de ID " + livro5.getId() + " alterado para: " +
-                        livro5.getNome());
+            filme1.setNome("Poor Things");
+            if (arquivoFilmes.update(filme1))
+                System.out.println("Filme de ID " + filme1.getId() + " alterado para: " +
+                        filme1.getNome());
             else
                 System.out.println("Não foi possível atualizar o filme de ID " +
-                        livro5.getId());
+                        filme1.getId());
 
             // // Seção: Atualização de Filme 2
-            livro2.setNome("AntArestral");
-            if (arquivoFilmes.update(livro2))
-                System.out.println("Filme de ID " + livro2.getId() + " alterado para: " +
-                        livro2.getNome());
+            filme2.setNome("AntArestral");
+            if (arquivoFilmes.update(filme2))
+                System.out.println("Filme de ID " + filme2.getId() + " alterado para: " +
+                        filme2.getNome());
             else
                 System.out.println("Não foi possível atualizar o filme de ID " +
-                        livro2.getId());
+                        filme2.getId());
 
             // // Seção: Atualização de Filme 3
-            livro3.setNome("Flores");
-            if (arquivoFilmes.update(livro3))
-                System.out.println("Filme de ID " + livro3.getId() + " alterado para: " +
-                        livro3.getNome());
+            filme3.setNome("Flores");
+            if (arquivoFilmes.update(filme3))
+                System.out.println("Filme de ID " + filme3.getId() + " alterado para: " +
+                        filme3.getNome());
             else
                 System.out.println("Não foi possível atualizar o filme de ID " +
-                        livro3.getId());
+                        filme3.getId());
 
             // // Seção: Atualização de Filme 4
-            livro4.setNome("Hulk");
-            if (arquivoFilmes.update(livro4))
-                System.out.println("Filme de ID " + livro4.getId() + " alterado para: " +
-                        livro4.getNome());
+            filme4.setNome("Hulk");
+            if (arquivoFilmes.update(filme4))
+                System.out.println("Filme de ID " + filme4.getId() + " alterado para: " +
+                        filme4.getNome());
             else
                 System.out.println("Não foi possível atualizar o filme de ID " +
-                        livro4.getId());
+                        filme4.getId());
 
             // // Seção: Atualização de Filme 5
-            livro1.setNome("Barbie and Dreamhouse");
-            if (arquivoFilmes.update(livro1))
-                System.out.println("Filme de ID " + livro1.getId() + " alterado para: " +
-                        livro1.getNome());
+            filme5.setNome("Barbie and Dreamhouse");
+            if (arquivoFilmes.update(filme5))
+                System.out.println("Filme de ID " + filme5.getId() + " alterado para: " +
+                        filme5.getNome());
             else
                 System.out.println("Não foi possível atualizar o filme de ID " +
-                        livro1.getId());
+                        filme5.getId());
 
             // // Seção: Atualização de Filme 6
-            livro6.setNome("Branca de neve");
-            if (arquivoFilmes.update(livro6))
-                System.out.println("Filme de ID " + livro6.getId() + " alterado para: " +
-                        livro6.getNome());
+            filme6.setNome("Branca de neve");
+            if (arquivoFilmes.update(filme6))
+                System.out.println("Filme de ID " + filme6.getId() + " alterado para: " +
+                        filme6.getNome());
             else
                 System.out.println("Não foi possível atualizar o filme de ID " +
-                        livro6.getId());
-
-            // READ DE NOVO
-
-            // Seção: Leitura e Verificação de Filme 1
-            if ((livro1 = arquivoFilmes.read(idLivro1)) != null)
-                System.out.println("Filme encontrado: " + livro1.getNome() + " (ID: " + livro1.getId() + ")");
-            else
-                System.out.println("Filme de ID " + idLivro1 + " não encontrado!");
-
-            // Seção: Leitura e Verificação de Filme 2
-            if ((livro2 = arquivoFilmes.read(idLivro2)) != null)
-                System.out.println("Filme encontrado: " + livro2.getNome() + " (ID: " + livro2.getId() + ")");
-            else
-                System.out.println("Filme de ID " + idLivro2 + " não encontrado!");
-
-            // Seção: Leitura e Verificação de Filme 3
-            if ((livro3 = arquivoFilmes.read(idLivro3)) != null)
-                System.out.println("Filme encontrado: " + livro3.getNome() + " (ID: " + livro3.getId() + ")");
-            else
-                System.out.println("Filme de ID " + idLivro3 + " não encontrado!");
-
-            // Seção: Leitura e Verificação de Filme 4
-            if ((livro4 = arquivoFilmes.read(idLivro4)) != null)
-                System.out.println("Filme encontrado: " + livro4.getNome() + " (ID: " + livro4.getId() + ")");
-            else
-                System.out.println("Filme de ID " + idLivro4 + " não encontrado!");
-
-            // Seção: Leitura e Verificação de Filme 5
-            if ((livro5 = arquivoFilmes.read(idLivro5)) != null)
-                System.out.println("Filme encontrado: " + livro5.getNome() + " (ID: " + livro5.getId() + ")");
-            else
-                System.out.println("Filme de ID " + idLivro5 + " não encontrado!");
-
-            // Seção: Leitura e Verificação de Filme 6
-            if ((livro6 = arquivoFilmes.read(idLivro6)) != null)
-                System.out.println("Filme encontrado: " + livro6.getNome() + " (ID: " + livro6.getId() + ")");
-            else
-                System.out.println("Filme de ID " + idLivro6 + " não encontrado!");
+                        filme6.getId());
 
             // DELETE
 
             // Seção: Exclusão de Filme 1
-            if (arquivoFilmes.delete(livro1.getId()))
-                System.out.println("Filme \"" + livro1.getNome() + "\" de ID " + idLivro1 + " excluído!");
+            if (arquivoFilmes.delete(filme1.getId()))
+                System.out.println("Filme \"" + filme1.getNome() + "\" de ID " + idFilme1 + " excluído!");
             else
                 System.out
-                        .println("Filme \"" + livro1.getNome() + "\" de ID " + idLivro1 + " não foi possível excluir!");
+                        .println("Filme \"" + filme1.getNome() + "\" de ID " + idFilme1 + " não foi possível excluir!");
 
             // Seção: Exclusão de Filme 2
-            if (arquivoFilmes.delete(livro2.getId()))
-                System.out.println("Filme \"" + livro2.getNome() + "\" de ID " + idLivro2 + " excluído!");
+            if (arquivoFilmes.delete(filme2.getId()))
+                System.out.println("Filme \"" + filme2.getNome() + "\" de ID " + idFilme2 + " excluído!");
             else
                 System.out
-                        .println("Filme \"" + livro2.getNome() + "\" de ID " + idLivro2 + " não foi possível excluir!");
+                        .println("Filme \"" + filme2.getNome() + "\" de ID " + idFilme2 + " não foi possível excluir!");
 
             // Seção: Exclusão de Filme 3
-            if (arquivoFilmes.delete(livro3.getId()))
-                System.out.println("Filme \"" + livro3.getNome() + "\" de ID " + idLivro3 + " excluído!");
+            if (arquivoFilmes.delete(filme3.getId()))
+                System.out.println("Filme \"" + filme3.getNome() + "\" de ID " + idFilme3 + " excluído!");
             else
                 System.out
-                        .println("Filme \"" + livro3.getNome() + "\" de ID " + idLivro3 + " não foi possível excluir!");
+                        .println("Filme \"" + filme3.getNome() + "\" de ID " + idFilme3 + " não foi possível excluir!");
 
             // Seção: Exclusão de Filme 4
-            if (arquivoFilmes.delete(livro4.getId()))
-                System.out.println("Filme \"" + livro4.getNome() + "\" de ID " + idLivro4 + " excluído!");
+            if (arquivoFilmes.delete(filme4.getId()))
+                System.out.println("Filme \"" + filme4.getNome() + "\" de ID " + idFilme4 + " excluído!");
             else
                 System.out
-                        .println("Filme \"" + livro4.getNome() + "\" de ID " + idLivro4 + " não foi possível excluir!");
+                        .println("Filme \"" + filme4.getNome() + "\" de ID " + idFilme4 + " não foi possível excluir!");
 
             // Seção: Exclusão de Filme 5
-            if (arquivoFilmes.delete(livro5.getId()))
-                System.out.println("Filme \"" + livro5.getNome() + "\" de ID " + idLivro5 + " excluído!");
+            if (arquivoFilmes.delete(filme5.getId()))
+                System.out.println("Filme \"" + filme5.getNome() + "\" de ID " + idFilme5 + " excluído!");
             else
                 System.out
-                        .println("Filme \"" + livro5.getNome() + "\" de ID " + idLivro5 + " não foi possível excluir!");
+                        .println("Filme \"" + filme5.getNome() + "\" de ID " + idFilme5 + " não foi possível excluir!");
 
             // Seção: Exclusão de Filme 6
-            if (arquivoFilmes.delete(livro6.getId()))
-                System.out.println("Filme \"" + livro6.getNome() + "\" de ID " + idLivro6 + " excluído!");
+            if (arquivoFilmes.delete(filme6.getId()))
+                System.out.println("Filme \"" + filme6.getNome() + "\" de ID " + idFilme6 + " excluído!");
             else
                 System.out
-                        .println("Filme \"" + livro6.getNome() + "\" de ID " + idLivro6 + " não foi possível excluir!");
+                        .println("Filme \"" + filme6.getNome() + "\" de ID " + idFilme6 + " não foi possível excluir!");
 
             // FECHANDO ARQUIVO
             arquivoFilmes.close();
